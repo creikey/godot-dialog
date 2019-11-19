@@ -12,21 +12,21 @@
 		"state": "sad",
 		"text": "I'm sorry to hear that",
 		"choices": {
-			"It's fine": "1"
+			"It's fine": "0"
 		}
 	},
 	"2": {
 		"state": "happy",
 		"text": "Awesome!",
 		"choices": {
-			"Yeah!": "1"
+			"Yeah!": "0"
 		}
 	},
 	"3": {
 		"state": "confused",
 		"text": "Why not? How could a finite state machine even take undesired action",
 		"choices": {
-			"I'd just rather not...": "1"
+			"I'd just rather not...": "0"
 		}
 	}
 }
