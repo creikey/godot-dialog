@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Mike.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://ChoiceButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://DialogParser.gd" type="Script" id=4]
 
 [node name="Main" type="Node2D"]
 
@@ -63,3 +64,9 @@ margin_bottom = 110.0
 margin_top = 114.0
 margin_right = 581.0
 margin_bottom = 148.0
+
+[node name="DialogParser" type="Node" parent="."]
+script = ExtResource( 4 )
+choice_button_pack = ExtResource( 3 )
+dialog_choices_vbox_node_path = NodePath("../UI/ChoicesAndInfo/DialogChoices")
+character_node_path = NodePath("../Mike")
