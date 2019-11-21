@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://GraphEdit.gd" type="Script" id=1]
-[ext_resource path="res://InitialGraphNode.tscn" type="PackedScene" id=2]
-[ext_resource path="res://StateGraphNode.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://GraphEdit.gd" type="Script" id=2]
+[ext_resource path="res://InitialGraphNode.tscn" type="PackedScene" id=3]
+[ext_resource path="res://StateGraphNode.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node2D"]
+script = ExtResource( 1 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -28,15 +30,15 @@ margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_vertical = 3
 scroll_offset = Vector2( 0, -20 )
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 
-[node name="InitialGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 2 )]
+[node name="InitialGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 3 )]
 margin_right = 342.0
 margin_bottom = 182.0
 resizable = false
 overlay = 0
 
-[node name="StateGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 3 )]
+[node name="StateGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 4 )]
 margin_left = 500.0
 margin_right = 842.0
 offset = Vector2( 500, 0 )
