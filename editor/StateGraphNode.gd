@@ -5,6 +5,7 @@ const notice_label_pack = preload("res://NoticeLabel.tscn")
 
 var choices: Array = []
 var notice_label = null
+export var is_initial: bool = false
 onready var choices_index: int = get_children().size() - 1
 
 func _ready():
@@ -32,6 +33,8 @@ func _on_StateGraphNode_close_request():
 	queue_free()
 
 func update_notice_label():
+	if is_initial:
+		return
 	if choices.size() > 0:
 		if notice_label != null:
 			notice_label.queue_free()
@@ -43,3 +46,7 @@ func update_notice_label():
 func _on_StateGraphNode_resize_request(new_minsize):
 	rect_size = new_minsize
 	rect_min_size = new_minsize
+
+func _on_TextLineEdit_text_changed(new_text):
+	if not is_initial:
+		title = new_text

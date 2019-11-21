@@ -34,6 +34,7 @@ script = ExtResource( 1 )
 margin_right = 342.0
 margin_bottom = 182.0
 resizable = false
+overlay = 0
 
 [node name="StateGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 3 )]
 margin_left = 500.0
