@@ -37,8 +37,10 @@ margin_bottom = 120.0
 
 [node name="ExitGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 4 )]
 margin_left = 500.0
+margin_top = 20.0
 margin_right = 700.0
-margin_bottom = 120.0
+margin_bottom = 140.0
+mouse_filter = 1
 offset = Vector2( 500, 0 )
 [connection signal="connection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_connection_request"]
 [connection signal="disconnection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_disconnection_request"]
