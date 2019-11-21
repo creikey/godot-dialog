@@ -22,7 +22,7 @@ margin_bottom = 20.0
 margin_right = 35.0
 margin_bottom = 20.0
 text = "File"
-items = [ "Load", null, 0, false, false, -1, 0, null, "", false, "Save", null, 0, false, false, -1, 0, null, "", false ]
+items = [ "Load", null, 0, false, false, -1, 0, null, "", false, "Save", null, 0, false, false, -1, 0, null, "", false, "Export", null, 0, false, false, 2, 0, null, "", false ]
 
 [node name="GraphEdit" type="GraphEdit" parent="UI/VBoxContainer"]
 margin_top = 24.0

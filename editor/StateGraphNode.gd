@@ -13,6 +13,14 @@ var notice_label = null
 export var is_initial: bool = false
 onready var initial_child_count = get_child_count()
 var inherited_choices: bool = false setget set_inherited_choices
+var state: String = "" setget ,get_state_text
+var text: String = "" setget ,get_text
+
+func get_text() -> String:
+	return $TextLineEdit.text
+
+func get_state_text() -> String:
+	return $StateLineEdit.text
 
 func set_inherited_choices(new_inherited_choices):
 	inherited_choices = new_inherited_choices
@@ -85,6 +93,7 @@ func _on_IncrementButton_pressed():
 func _on_DecrementButton_pressed():
 	if inherited_choices:
 		self.inherited_choices = false
+	get_parent().disconnect_connected_to(name, choices.size() - 1)
 	choices.remove(choices.size() - 1)
 	update_notice_label()
 	update_choice_nodes()

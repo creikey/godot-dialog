@@ -29,6 +29,9 @@ slot/2/right_enabled = false
 slot/2/right_type = 0
 slot/2/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="StateLineEdit" type="LineEdit" parent="."]
 margin_left = 16.0
@@ -39,16 +42,16 @@ placeholder_text = "State"
 
 [node name="TextLineEdit" type="LineEdit" parent="."]
 margin_left = 16.0
-margin_top = 48.0
+margin_top = 49.0
 margin_right = 184.0
-margin_bottom = 72.0
+margin_bottom = 73.0
 placeholder_text = "Text"
 
 [node name="IncrementDecrement" type="HBoxContainer" parent="."]
 margin_left = 16.0
-margin_top = 73.0
+margin_top = 74.0
 margin_right = 184.0
-margin_bottom = 93.0
+margin_bottom = 94.0
 
 [node name="IncrementButton" type="Button" parent="IncrementDecrement"]
 margin_right = 82.0
