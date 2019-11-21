@@ -36,17 +36,25 @@ func _input(event):
 		cur_state.offset = event.global_position - Vector2(0, 200)
 		add_child(cur_state)
 
+func get_node_children() -> Array:
+	var to_return = []
+	for node in get_children():
+		if node.name == "ExitGraphNode" or not node is GraphNode:
+			continue
+		to_return.append(node)
+	return to_return
+
 func export_dict():
+	# get interesting children
+	var node_children = get_node_children()
+	
+	
 	# number each state with an ID ( needed for export )
 	var cur_state: int = 1 # 0 is the exit state
 	var name_to_state_number: Dictionary = {
 		"ExitGraphNode" : 0
 	}
-	for node in get_children():
-		# skip over uninteresting nodes
-#		print(node.name,"	",cur_state)
-		if node.name == "ExitGraphNode" or not node is GraphNode:
-			continue
+	for node in node_children:
 		name_to_state_number[node.name] = cur_state
 		cur_state += 1
 	
@@ -77,10 +85,7 @@ func export_dict():
 
 	cur_state = 1
 	print(name_to_state_number)
-	for node in get_children():
-		# skip over uninteresting nodes
-		if node.name == "ExitGraphNode" or not node is GraphNode:
-			continue
+	for node in node_children:
 		
 		var choices_dict: Dictionary = {}
 		if not name_to_choice_connections.has(node.name):
@@ -94,6 +99,33 @@ func export_dict():
 			"choices" : choices_dict
 		}
 		cur_state += 1
+	
+	# save graph data for opening
+	out_dict["savedata"] = {
+		"names_to_offsets": {},
+		"connections": []
+	}
+	
+	for node in node_children:
+		out_dict["savedata"]["names_to_offsets"][node.name] = node.offset
+	
+	for connection in get_connection_list():
+		out_dict["savedata"]["connections"].append(connection)
+
+func load_savedata(savedata_dict: Dictionary):
+	var node_children = get_node_children()
+	for node in node_children:
+		if node.name == "InitialGraphNode":
+			continue
+		node.queue_free()
+	
+	for cur_name in savedata_dict["names_to_offsets"].keys():
+		var cur_graph_node: GraphNode = preload("res://StateGraphNode.tscn").instance()
+		cur_graph_node.name = cur_name
+		cur_graph_node.offset = savedata_dict["names_to_offsets"][cur_name]
+
+	for connection in savedata_dict["connections"]:
+		connect_node(connection["from_port"], connection["from"], connection["to_port"], connection["to"])
 
 func _on_GraphEdit_disconnection_request(from, from_slot, to, to_slot):
 	disconnect_node(from, from_slot, to, to_slot)

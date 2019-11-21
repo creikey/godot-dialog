@@ -24,7 +24,7 @@ margin_bottom = 20.0
 margin_right = 35.0
 margin_bottom = 20.0
 text = "File"
-items = [ "Load", null, 0, false, false, -1, 0, null, "", false, "Save", null, 0, false, false, -1, 0, null, "", false, "Export", null, 0, false, false, 2, 0, null, "", false ]
+items = [ "Load", null, 0, false, false, 1, 0, null, "", false, "Save", null, 0, false, false, 2, 0, null, "", false ]
 script = ExtResource( 5 )
 
 [node name="GraphEdit" type="GraphEdit" parent="UI/VBoxContainer"]
@@ -57,15 +57,15 @@ margin_right = 337.5
 margin_bottom = 190.0
 access = 2
 filters = PoolStringArray( "*.json" )
-current_dir = "/home/creikey/Documents/projects/godot-dialog/editor"
+current_dir = "C:/Users/316933/godot-dialog/editor"
 current_file = "dialog.json"
-current_path = "/home/creikey/Documents/projects/godot-dialog/editor/dialog.json"
+current_path = "C:/Users/316933/godot-dialog/editor/dialog.json"
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 graph_edit_path = NodePath("../VBoxContainer/GraphEdit")
-[connection signal="export_menu" from="UI/VBoxContainer/Menu/FileButton" to="UI/FileDialog" method="_on_FileButton_export_menu"]
+[connection signal="save_menu" from="UI/VBoxContainer/Menu/FileButton" to="UI/FileDialog" method="_on_FileButton_save_menu"]
 [connection signal="connection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_connection_request"]
 [connection signal="disconnection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_disconnection_request"]
 [connection signal="file_selected" from="UI/FileDialog" to="UI/FileDialog" method="_on_FileDialog_file_selected"]
