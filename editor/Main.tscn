@@ -31,7 +31,12 @@ scroll_offset = Vector2( 0, -20 )
 script = ExtResource( 1 )
 
 [node name="InitialGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 2 )]
-show_close = false
+margin_right = 342.0
+margin_bottom = 182.0
+resizable = false
 
 [node name="StateGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 3 )]
+margin_left = 500.0
+margin_right = 842.0
+offset = Vector2( 500, 0 )
 [connection signal="connection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_connection_request"]

@@ -1,0 +1,12 @@
+[gd_scene format=2]
+
+[node name="NoticeLabel" type="Label"]
+margin_left = 16.0
+margin_top = 94.0
+margin_right = 326.0
+margin_bottom = 159.0
+text = "
+Without any choices, this state will have the choices  of the previous state
+"
+align = 1
+autowrap = true

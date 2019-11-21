@@ -4,11 +4,12 @@
 
 [node name="StateGraphNode" type="GraphNode"]
 margin_top = 20.0
-margin_right = 342.0
-margin_bottom = 182.0
+margin_right = 800.0
+margin_bottom = 820.0
 mouse_filter = 1
 title = "State"
 show_close = true
+resizable = true
 slot/0/left_enabled = false
 slot/0/left_type = 0
 slot/0/left_color = Color( 1, 1, 1, 1 )
@@ -32,35 +33,37 @@ script = ExtResource( 1 )
 [node name="StateLineEdit" type="LineEdit" parent="."]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 326.0
+margin_right = 784.0
 margin_bottom = 48.0
 placeholder_text = "State"
 
 [node name="TextLineEdit" type="LineEdit" parent="."]
 margin_left = 16.0
 margin_top = 48.0
-margin_right = 326.0
+margin_right = 784.0
 margin_bottom = 72.0
 placeholder_text = "Text"
 
 [node name="IncrementDecrement" type="HBoxContainer" parent="."]
+editor/display_folded = true
 margin_left = 16.0
 margin_top = 73.0
-margin_right = 326.0
+margin_right = 784.0
 margin_bottom = 93.0
 
 [node name="IncrementButton" type="Button" parent="IncrementDecrement"]
-margin_right = 153.0
+margin_right = 382.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "+"
 
 [node name="DecrementButton" type="Button" parent="IncrementDecrement"]
-margin_left = 157.0
-margin_right = 310.0
+margin_left = 386.0
+margin_right = 768.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "-"
 [connection signal="close_request" from="." to="." method="_on_StateGraphNode_close_request"]
+[connection signal="resize_request" from="." to="." method="_on_StateGraphNode_resize_request"]
 [connection signal="pressed" from="IncrementDecrement/IncrementButton" to="." method="_on_IncrementButton_pressed"]
 [connection signal="pressed" from="IncrementDecrement/DecrementButton" to="." method="_on_DecrementButton_pressed"]
