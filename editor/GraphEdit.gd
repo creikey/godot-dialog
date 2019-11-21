@@ -17,6 +17,12 @@ func connected_to_me(graph_node_name: String) -> Node:
 			return get_node(connection["from"])
 	return null
 
+func _input(event):
+	if event.is_action_pressed("g_new_state"):
+		var cur_state: GraphNode = preload("res://StateGraphNode.tscn").instance()
+		cur_state.offset = event.global_position - Vector2(0, 200)
+		add_child(cur_state)
+
 func export_dict():
 	for node in get_children():
 		pass

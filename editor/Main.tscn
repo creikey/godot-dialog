@@ -3,7 +3,7 @@
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://GraphEdit.gd" type="Script" id=2]
 [ext_resource path="res://InitialGraphNode.tscn" type="PackedScene" id=3]
-[ext_resource path="res://StateGraphNode.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ExitGraphNode.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -33,12 +33,11 @@ scroll_offset = Vector2( 0, -20 )
 script = ExtResource( 2 )
 
 [node name="InitialGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 3 )]
-margin_right = 342.0
-margin_bottom = 182.0
+margin_bottom = 120.0
 
-[node name="StateGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 4 )]
+[node name="ExitGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 4 )]
 margin_left = 500.0
-margin_right = 842.0
+margin_right = 700.0
 margin_bottom = 120.0
 offset = Vector2( 500, 0 )
 [connection signal="connection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_connection_request"]

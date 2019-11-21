@@ -1,11 +1,9 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://StateGraphNode.tscn" type="PackedScene" id=1]
+[ext_resource path="res://InitialGraphNode.tscn" type="PackedScene" id=1]
 
-[node name="InitialGraphNode" instance=ExtResource( 1 )]
-title = "Initial"
-show_close = false
-is_initial = true
+[node name="ExitGraphNode" instance=ExtResource( 1 )]
+title = "Exit"
 
 [node name="TextLineEdit" parent="." index="1"]
 margin_top = 49.0
