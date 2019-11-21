@@ -2,6 +2,8 @@ extends GraphNode
 
 class_name StateGraphNode
 
+signal choices_changed(new_choices)
+
 const editor_state = preload("res://editor_state.tres")
 const notice_label_pack = preload("res://NoticeLabel.tscn")
 
@@ -20,6 +22,7 @@ func set_inherited_choices(new_inherited_choices):
 		overlay = OVERLAY_DISABLED
 
 func update_choice_nodes():
+	emit_signal("choices_changed", choices)
 	var cur_index: int = initial_child_count
 	for c_index in cur_index:
 		clear_slot(cur_index)
@@ -33,6 +36,7 @@ func update_choice_nodes():
 		cur_line_edit.placeholder_text = "choice"
 		cur_line_edit.text = c
 		cur_line_edit.name = str(cur_choice)
+# warning-ignore:return_value_discarded
 		cur_line_edit.connect("text_changed", self, "choice_edited", [cur_choice])
 		choice_nodes.append(cur_line_edit)
 		add_child(cur_line_edit)
@@ -46,6 +50,7 @@ func choice_edited(new_text, index):
 	if inherited_choices:
 		self.inherited_choices = false
 	choices[index] = new_text
+	emit_signal("choices_changed", choices)
 
 func set_choices(new_choices):
 	choices = new_choices
@@ -56,8 +61,12 @@ func connected(from: StateGraphNode):
 	if choices.size() <= 0:
 		self.inherited_choices = true
 		self.choices = from.choices
+		from.connect("choices_changed", self, "_on_from_choices_changed")
 
-func disconnected(from: StateGraphNode):
+func _on_from_choices_changed(new_choices):
+	self.choices = new_choices
+
+func disconnected(_from: StateGraphNode):
 	if inherited_choices:
 		self.inherited_choices = false
 		self.choices = []

@@ -1,11 +1,13 @@
 extends GraphEdit
 
+# warning-ignore:unused_class_variable
 var out_dict: Dictionary
 
 func _ready():
 	set_right_disconnects(true)
 
 func _on_GraphEdit_connection_request(from, from_slot, to, to_slot):
+# warning-ignore:return_value_discarded
 	connect_node(from, from_slot, to, to_slot)
 	get_node(to).connected(get_node(from))
 
