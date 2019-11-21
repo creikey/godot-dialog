@@ -10,7 +10,6 @@ mouse_filter = 1
 title = "State"
 show_close = true
 resizable = true
-overlay = 1
 slot/0/left_enabled = false
 slot/0/left_type = 0
 slot/0/left_color = Color( 1, 1, 1, 1 )
@@ -46,7 +45,6 @@ margin_bottom = 72.0
 placeholder_text = "Text"
 
 [node name="IncrementDecrement" type="HBoxContainer" parent="."]
-editor/display_folded = true
 margin_left = 16.0
 margin_top = 73.0
 margin_right = 184.0
@@ -66,6 +64,7 @@ size_flags_horizontal = 3
 text = "-"
 [connection signal="close_request" from="." to="." method="_on_StateGraphNode_close_request"]
 [connection signal="resize_request" from="." to="." method="_on_StateGraphNode_resize_request"]
+[connection signal="sort_children" from="." to="." method="_on_StateGraphNode_sort_children"]
 [connection signal="text_changed" from="TextLineEdit" to="." method="_on_TextLineEdit_text_changed"]
 [connection signal="pressed" from="IncrementDecrement/IncrementButton" to="." method="_on_IncrementButton_pressed"]
 [connection signal="pressed" from="IncrementDecrement/DecrementButton" to="." method="_on_DecrementButton_pressed"]

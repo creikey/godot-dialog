@@ -35,11 +35,11 @@ script = ExtResource( 2 )
 [node name="InitialGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 3 )]
 margin_right = 342.0
 margin_bottom = 182.0
-resizable = false
-overlay = 0
 
 [node name="StateGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 4 )]
 margin_left = 500.0
 margin_right = 842.0
+margin_bottom = 120.0
 offset = Vector2( 500, 0 )
 [connection signal="connection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_connection_request"]
+[connection signal="disconnection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_disconnection_request"]
