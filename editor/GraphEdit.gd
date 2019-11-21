@@ -6,13 +6,13 @@ var out_dict: Dictionary
 func _ready():
 	set_right_disconnects(true)
 
-var counter = 0.0
-func _process(delta):
-	counter += delta
-	if counter > 1.0:
-		counter = 0.0
-		export_dict()
-		print(out_dict,"\n")
+#var counter = 0.0
+#func _process(delta):
+#	counter += delta
+#	if counter > 1.0:
+#		counter = 0.0
+#		export_dict()
+#		print(out_dict,"\n")
 
 func _on_GraphEdit_connection_request(from, from_slot, to, to_slot):
 # warning-ignore:return_value_discarded
