@@ -57,9 +57,9 @@ margin_right = 337.5
 margin_bottom = 190.0
 access = 2
 filters = PoolStringArray( "*.json" )
-current_dir = "C:/Users/316933/godot-dialog/editor"
+current_dir = "/home/creikey/Documents/projects/godot-dialog/editor"
 current_file = "dialog.json"
-current_path = "C:/Users/316933/godot-dialog/editor/dialog.json"
+current_path = "/home/creikey/Documents/projects/godot-dialog/editor/dialog.json"
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false

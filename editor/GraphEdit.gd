@@ -27,7 +27,7 @@ func connected_to_me(graph_node_name: String) -> Node:
 
 func disconnect_connected_to(graph_node_name: String, slot_index: int):
 	for connection in get_connection_list():
-		if connection["from_port"] == slot_index:
+		if connection["from_port"] == slot_index and connection["from"] == graph_node_name:
 			disconnect_node(connection["from"], connection["from_port"], connection["to"], connection["to_port"])
 
 func _input(event):
@@ -125,6 +125,7 @@ func load_savedata(savedata_dict: Dictionary):
 		cur_graph_node.offset = savedata_dict["names_to_offsets"][cur_name]
 
 	for connection in savedata_dict["connections"]:
+# warning-ignore:return_value_discarded
 		connect_node(connection["from_port"], connection["from"], connection["to_port"], connection["to"])
 
 func _on_GraphEdit_disconnection_request(from, from_slot, to, to_slot):
