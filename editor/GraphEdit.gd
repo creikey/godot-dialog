@@ -85,6 +85,7 @@ func export_dict():
 
 	cur_state = 1
 	print(name_to_state_number)
+	
 	for node in node_children:
 		
 		var choices_dict: Dictionary = {}
@@ -103,30 +104,63 @@ func export_dict():
 	# save graph data for opening
 	out_dict["savedata"] = {
 		"names_to_offsets": {},
+		"names_to_choices": {},
+		"names_to_state": {},
+		"names_to_text": {},
 		"connections": []
 	}
 	
 	for node in node_children:
-		out_dict["savedata"]["names_to_offsets"][node.name] = node.offset
+		write_node(node.name, node, out_dict["savedata"])
+	
+	write_node($ExitGraphNode.name, $ExitGraphNode, out_dict["savedata"])
 	
 	for connection in get_connection_list():
 		out_dict["savedata"]["connections"].append(connection)
 
+func write_node(node_name: String, node_ref: GraphNode, save_data: Dictionary):
+	save_data["names_to_offsets"][node_name] = {
+		"x": node_ref.offset.x,
+		"y": node_ref.offset.y
+	}
+	save_data["names_to_choices"][node_name] = node_ref.choices
+	save_data["names_to_state"][node_name] = node_ref.state
+	save_data["names_to_text"][node_name] = node_ref.text
+
 func load_savedata(savedata_dict: Dictionary):
 	var node_children = get_node_children()
+	clear_connections()
 	for node in node_children:
 		if node.name == "InitialGraphNode":
 			continue
+		node.name = "__GARBAGE"
 		node.queue_free()
 	
 	for cur_name in savedata_dict["names_to_offsets"].keys():
+		if cur_name == "InitialGraphNode" or cur_name == "ExitGraphNode":
+			continue
 		var cur_graph_node: GraphNode = preload("res://StateGraphNode.tscn").instance()
 		cur_graph_node.name = cur_name
-		cur_graph_node.offset = savedata_dict["names_to_offsets"][cur_name]
+		add_child(cur_graph_node)
+		update_node(cur_name, cur_graph_node, savedata_dict)
+	
+	update_node($InitialGraphNode.name, $InitialGraphNode, savedata_dict)
+	update_node($ExitGraphNode.name, $ExitGraphNode, savedata_dict)
+	
 
 	for connection in savedata_dict["connections"]:
 # warning-ignore:return_value_discarded
-		connect_node(connection["from_port"], connection["from"], connection["to_port"], connection["to"])
+		connect_node(connection["from"], connection["from_port"], connection["to"], connection["to_port"])
+
+
+
+func update_node(node_name: String, node_ref: GraphNode, save_data: Dictionary):
+	var offset_dict = save_data["names_to_offsets"][node_name]
+	node_ref.offset.x = offset_dict["x"]
+	node_ref.offset.y = offset_dict["y"]
+	node_ref.choices = save_data["names_to_choices"][node_name]
+	node_ref.state = save_data["names_to_state"][node_name]
+	node_ref.text = save_data["names_to_text"][node_name]
 
 func _on_GraphEdit_disconnection_request(from, from_slot, to, to_slot):
 	disconnect_node(from, from_slot, to, to_slot)

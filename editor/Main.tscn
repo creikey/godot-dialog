@@ -65,6 +65,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 graph_edit_path = NodePath("../VBoxContainer/GraphEdit")
+[connection signal="load_menu" from="UI/VBoxContainer/Menu/FileButton" to="UI/FileDialog" method="_on_FileButton_load_menu"]
 [connection signal="save_menu" from="UI/VBoxContainer/Menu/FileButton" to="UI/FileDialog" method="_on_FileButton_save_menu"]
 [connection signal="connection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_connection_request"]
 [connection signal="disconnection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_disconnection_request"]

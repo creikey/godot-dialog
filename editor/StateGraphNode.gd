@@ -14,15 +14,25 @@ export var is_initial: bool = false
 onready var initial_child_count = get_child_count()
 var inherited_choices: bool = false setget set_inherited_choices
 # warning-ignore:unused_class_variable
-var state: String = "" setget ,get_state_text
+var state: String = "" setget set_state_text,get_state_text
 # warning-ignore:unused_class_variable
-var text: String = "" setget ,get_text
+var text: String = "" setget set_text,get_text
 
 func get_text() -> String:
 	return $TextLineEdit.text
 
+func set_text(new_text):
+	text = new_text
+	if has_node("TextLineEdit"):
+		$TextLineEdit.text = text
+
 func get_state_text() -> String:
 	return $StateLineEdit.text
+
+func set_state_text(new_state_text):
+	state = new_state_text
+	if has_node("StateLineEdit"):
+		$StateLineEdit.text = new_state_text
 
 func set_inherited_choices(new_inherited_choices):
 	inherited_choices = new_inherited_choices
