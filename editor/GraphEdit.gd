@@ -37,7 +37,9 @@ func disconnect_all(graph_node_name: String):
 		if c["from"] == graph_node_name:
 			disconnect_node(c["from"], c["from_port"], c["to"], c["to_port"])
 
-func _input(event):
+
+#func _input(event):
+func ignore(event):
 	if event.is_action_pressed("g_new_state"):
 		var cur_state: GraphNode = preload("res://StateGraphNode.tscn").instance()
 		cur_state.offset = event.global_position - Vector2(0, 200)

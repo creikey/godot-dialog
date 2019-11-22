@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://GraphEdit.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://ExitGraphNode.tscn" type="PackedScene" id=4]
 [ext_resource path="res://FileButton.gd" type="Script" id=5]
 [ext_resource path="res://FileDialog.gd" type="Script" id=6]
+[ext_resource path="res://PopupMenu.gd" type="Script" id=7]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -15,6 +16,9 @@ script = ExtResource( 1 )
 [node name="VBoxContainer" type="VBoxContainer" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Menu" type="HBoxContainer" parent="UI/VBoxContainer"]
 margin_right = 1024.0
@@ -65,8 +69,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 graph_edit_path = NodePath("../VBoxContainer/GraphEdit")
+
+[node name="PopupMenu" type="PopupMenu" parent="UI"]
+margin_right = 20.0
+margin_bottom = 20.0
+items = [ "state", null, 0, false, false, 0, 0, null, "", false, "state stub", null, 0, false, false, 1, 0, null, "", false ]
+script = ExtResource( 7 )
+graph_edit_path = NodePath("../VBoxContainer/GraphEdit")
 [connection signal="load_menu" from="UI/VBoxContainer/Menu/FileButton" to="UI/FileDialog" method="_on_FileButton_load_menu"]
 [connection signal="save_menu" from="UI/VBoxContainer/Menu/FileButton" to="UI/FileDialog" method="_on_FileButton_save_menu"]
 [connection signal="connection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_connection_request"]
 [connection signal="disconnection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_disconnection_request"]
 [connection signal="file_selected" from="UI/FileDialog" to="UI/FileDialog" method="_on_FileDialog_file_selected"]
+[connection signal="id_pressed" from="UI/PopupMenu" to="UI/PopupMenu" method="_on_PopupMenu_id_pressed"]
