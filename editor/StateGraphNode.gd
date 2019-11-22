@@ -76,22 +76,6 @@ func disconnected(_from):
 
 func _ready():
 	update_notice_label()
-	
-
-func _on_IncrementButton_pressed():
-	if inherited_choices:
-		self.inherited_choices = false
-	choices.append("")
-	update_notice_label()
-	update_choice_nodes()
-
-func _on_DecrementButton_pressed():
-	if inherited_choices:
-		self.inherited_choices = false
-	get_parent().disconnect_connected_to(name, choices.size() - 1)
-	choices.remove(choices.size() - 1)
-	update_notice_label()
-	update_choice_nodes()
 
 func update_notice_label():
 	if is_initial:
@@ -110,3 +94,19 @@ func _on_StateGraphNode_sort_children():
 func _on_TextLineEdit_text_changed(new_text):
 	if not is_initial:
 		title = new_text
+
+
+func _on_Increment_pressed():
+	if inherited_choices:
+		self.inherited_choices = false
+	choices.append("")
+	update_notice_label()
+	update_choice_nodes()
+
+func _on_Decrement_pressed():
+	if inherited_choices:
+		self.inherited_choices = false
+	get_parent().disconnect_connected_to(name, choices.size() - 1)
+	choices.remove(choices.size() - 1)
+	update_notice_label()
+	update_choice_nodes()
