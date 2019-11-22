@@ -16,6 +16,7 @@ func _on_FileDialog_file_selected(path):
 		FileDialog.MODE_OPEN_FILE:
 			var graph_edit = get_node(graph_edit_path)
 			var cur_file: File = File.new()
+# warning-ignore:return_value_discarded
 			cur_file.open(path, File.READ)
 			graph_edit.load_savedata(parse_json(cur_file.get_as_text())["savedata"])
 			cur_file.close()
