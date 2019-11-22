@@ -1,10 +1,9 @@
-extends GraphNode
+extends StateStubGraphNode
 
 class_name StateGraphNode
 
 signal choices_changed(new_choices)
 
-const editor_state = preload("res://editor_state.tres")
 const notice_label_pack = preload("res://NoticeLabel.tscn")
 
 var choices: Array = [] setget set_choices
@@ -13,26 +12,9 @@ var notice_label = null
 export var is_initial: bool = false
 onready var initial_child_count = get_child_count()
 var inherited_choices: bool = false setget set_inherited_choices
-# warning-ignore:unused_class_variable
-var state: String = "" setget set_state_text,get_state_text
-# warning-ignore:unused_class_variable
-var text: String = "" setget set_text,get_text
 
-func get_text() -> String:
-	return $TextLineEdit.text
 
-func set_text(new_text):
-	text = new_text
-	if has_node("TextLineEdit"):
-		$TextLineEdit.text = text
 
-func get_state_text() -> String:
-	return $StateLineEdit.text
-
-func set_state_text(new_state_text):
-	state = new_state_text
-	if has_node("StateLineEdit"):
-		$StateLineEdit.text = new_state_text
 
 func set_inherited_choices(new_inherited_choices):
 	inherited_choices = new_inherited_choices
@@ -77,7 +59,7 @@ func set_choices(new_choices):
 	update_notice_label()
 	update_choice_nodes()
 
-func connected(from: StateGraphNode):
+func connected(from):
 	if choices.size() <= 0:
 		self.inherited_choices = true
 		self.choices = from.choices
@@ -87,14 +69,14 @@ func connected(from: StateGraphNode):
 func _on_from_choices_changed(new_choices):
 	self.choices = new_choices
 
-func disconnected(_from: StateGraphNode):
+func disconnected(_from):
 	if inherited_choices:
 		self.inherited_choices = false
 		self.choices = []
 
 func _ready():
 	update_notice_label()
-	set_slot(0, true, 0, editor_state.state_color, false, 0, Color())
+	
 
 func _on_IncrementButton_pressed():
 	if inherited_choices:
@@ -111,10 +93,6 @@ func _on_DecrementButton_pressed():
 	update_notice_label()
 	update_choice_nodes()
 
-func _on_StateGraphNode_close_request():
-	get_parent().disconnect_all(name)
-	queue_free()
-
 func update_notice_label():
 	if is_initial:
 		return
@@ -126,13 +104,9 @@ func update_notice_label():
 		notice_label = notice_label_pack.instance()
 		add_child(notice_label)
 
-func _on_StateGraphNode_resize_request(new_minsize):
-	rect_size = new_minsize
-#	rect_min_size = new_minsize
+func _on_StateGraphNode_sort_children():
+	rect_size.y = 0
 
 func _on_TextLineEdit_text_changed(new_text):
 	if not is_initial:
 		title = new_text
-
-func _on_StateGraphNode_sort_children():
-	rect_size.y = 0

@@ -9,13 +9,19 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "GraphNode",
+"base": "StateStubGraphNode",
 "class": "StateGraphNode",
 "language": "GDScript",
 "path": "res://StateGraphNode.gd"
+}, {
+"base": "GraphNode",
+"class": "StateStubGraphNode",
+"language": "GDScript",
+"path": "res://StateStubGraphNode.gd"
 } ]
 _global_script_class_icons={
-"StateGraphNode": ""
+"StateGraphNode": "",
+"StateStubGraphNode": ""
 }
 
 [application]
