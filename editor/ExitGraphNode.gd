@@ -1,7 +1,7 @@
 extends GraphNode
 
-func connected(node):
+func connected(_node):
 	pass
 
-func disconnected(node):
+func disconnected(_node):
 	pass

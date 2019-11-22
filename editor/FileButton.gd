@@ -4,6 +4,7 @@ signal save_menu
 signal load_menu
 
 func _ready():
+# warning-ignore:return_value_discarded
 	get_popup().connect("id_pressed", self, "_on_id_pressed")
 
 func _on_id_pressed(id):

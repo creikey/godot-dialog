@@ -13,7 +13,9 @@ var notice_label = null
 export var is_initial: bool = false
 onready var initial_child_count = get_child_count()
 var inherited_choices: bool = false setget set_inherited_choices
+# warning-ignore:unused_class_variable
 var state: String = "" setget ,get_state_text
+# warning-ignore:unused_class_variable
 var text: String = "" setget ,get_text
 
 func get_text() -> String:
@@ -69,6 +71,7 @@ func connected(from: StateGraphNode):
 	if choices.size() <= 0:
 		self.inherited_choices = true
 		self.choices = from.choices
+# warning-ignore:return_value_discarded
 		from.connect("choices_changed", self, "_on_from_choices_changed")
 
 func _on_from_choices_changed(new_choices):
