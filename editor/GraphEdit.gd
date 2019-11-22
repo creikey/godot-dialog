@@ -30,6 +30,13 @@ func disconnect_connected_to(graph_node_name: String, slot_index: int):
 		if connection["from_port"] == slot_index and connection["from"] == graph_node_name:
 			disconnect_node(connection["from"], connection["from_port"], connection["to"], connection["to_port"])
 
+func disconnect_all(graph_node_name: String):
+	for c in get_connection_list():
+		if c["to"] == graph_node_name:
+			disconnect_node(c["from"], c["from_port"], c["to"], c["to_port"])
+		if c["from"] == graph_node_name:
+			disconnect_node(c["from"], c["from_port"], c["to"], c["to_port"])
+
 func _input(event):
 	if event.is_action_pressed("g_new_state"):
 		var cur_state: GraphNode = preload("res://StateGraphNode.tscn").instance()

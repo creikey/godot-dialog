@@ -112,6 +112,7 @@ func _on_DecrementButton_pressed():
 	update_choice_nodes()
 
 func _on_StateGraphNode_close_request():
+	get_parent().disconnect_all(name)
 	queue_free()
 
 func update_notice_label():
