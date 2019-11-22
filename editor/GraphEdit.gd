@@ -34,6 +34,20 @@ func _input(event):
 	if event.is_action_pressed("g_new_state"):
 		var cur_state: GraphNode = preload("res://StateGraphNode.tscn").instance()
 		cur_state.offset = event.global_position - Vector2(0, 200)
+		# ensure name is unique among graph nodes ( innefficient, but hopefully will never slow down... )
+		var cur_name = str(randi())
+		var cur_name_good: bool = false
+		while not cur_name_good:
+			var found_name: bool = false
+			for c in get_children():
+				if c.name == cur_name:
+					found_name = true
+			if found_name:
+				cur_name_good = false
+				cur_name = str(randi())
+			else:
+				cur_name_good = true
+		cur_state.name = cur_name
 		add_child(cur_state)
 
 func get_node_children() -> Array:
