@@ -44,19 +44,10 @@ margin_top = 20.0
 margin_right = 200.0
 margin_bottom = 120.0
 mouse_filter = 1
-resizable = true
 slot/0/left_enabled = false
-slot/0/left_type = 0
 slot/0/left_color = Color( 1, 1, 1, 1 )
 slot/0/right_enabled = false
-slot/0/right_type = 0
 slot/0/right_color = Color( 1, 1, 1, 1 )
-slot/1/left_enabled = false
-slot/1/left_type = 0
-slot/1/left_color = Color( 1, 1, 1, 1 )
-slot/1/right_enabled = false
-slot/1/right_type = 0
-slot/1/right_color = Color( 1, 1, 1, 1 )
 
 [node name="ExitGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 4 )]
 margin_left = 500.0

@@ -3,7 +3,7 @@
 [ext_resource path="res://StateGraphNode.gd" type="Script" id=1]
 [ext_resource path="res://StateStubGraphNode.tscn" type="PackedScene" id=2]
 
-[node name="StateGraphNode" index="0" instance=ExtResource( 2 )]
+[node name="StateGraphNode" instance=ExtResource( 2 )]
 title = "State"
 slot/2/left_enabled = false
 slot/2/left_type = 0

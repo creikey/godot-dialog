@@ -10,7 +10,7 @@ var state: String = "" setget set_state_text,get_state_text
 var text: String = "" setget set_text,get_text
 
 func _ready():
-	set_slot(0, true, 0, editor_state.state_color, false, 0, Color())
+	set_slot(0, true, 0, editor_state.state_color, true, 0, editor_state.state_color)
 
 func get_text() -> String:
 	return $TextLineEdit.text
