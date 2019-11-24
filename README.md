@@ -19,6 +19,8 @@ A simple system for conversational dialog, featuring a full fledged editor for n
 
  - States are stored as strings to remove floating point comparison errors in godot
  - At state `0`, the dialog is over
+ - States with no choices contain a `next` key that specifies the next state, typically after user input. This is used to provide different emotional states for one chain of dialog
+ - State that has the choice "inherit" will inherit the last used choices, useful for simple dialog
 
 Dialog consists of a json file, which contains a root dictionary of states, as such:
 ```
@@ -34,9 +36,12 @@ Dialog consists of a json file, which contains a root dictionary of states, as s
 	"2" : {
 		"state" : "confused",
 		"text" : "Because I do!?",
-		"choices" : {
-			"Alright then..." : "1"
-		}
+		"next" : "3"
+	}
+	"3" : {
+		"state" : "normal",
+		"text" : "Why would you even ask something like that?",
+		"choices" : "inherit"
 	}
 }
 ```

@@ -5,6 +5,7 @@
 
 [node name="StateGraphNode" instance=ExtResource( 2 )]
 title = "State"
+slot/0/right_enabled = false
 slot/2/left_enabled = false
 slot/2/left_type = 0
 slot/2/left_color = Color( 1, 1, 1, 1 )
@@ -12,6 +13,7 @@ slot/2/right_enabled = false
 slot/2/right_type = 0
 slot/2/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 1 )
+is_stub = false
 
 [node name="IncrementDecrement" type="HBoxContainer" parent="." index="2"]
 margin_left = 16.0

@@ -3,6 +3,7 @@ extends GraphNode
 class_name StateStubGraphNode
 
 const editor_state = preload("res://editor_state.tres")
+export var is_stub = true
 
 # warning-ignore:unused_class_variable
 var state: String = "" setget set_state_text,get_state_text
@@ -10,7 +11,7 @@ var state: String = "" setget set_state_text,get_state_text
 var text: String = "" setget set_text,get_text
 
 func _ready():
-	set_slot(0, true, 0, editor_state.state_color, true, 0, editor_state.state_color)
+	set_slot(0, true, 0, editor_state.state_color, is_stub, 0, editor_state.state_color)
 
 func get_text() -> String:
 	return $TextLineEdit.text

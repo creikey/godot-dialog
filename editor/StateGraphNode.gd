@@ -60,7 +60,7 @@ func set_choices(new_choices):
 	update_choice_nodes()
 
 func connected(from):
-	if choices.size() <= 0:
+	if choices.size() <= 0 and not from.is_stub:
 		self.inherited_choices = true
 		self.choices = from.choices
 # warning-ignore:return_value_discarded

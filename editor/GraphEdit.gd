@@ -1,5 +1,7 @@
 extends GraphEdit
 
+signal new_greatest_id(greatest_id)
+
 # warning-ignore:unused_class_variable
 var out_dict: Dictionary
 
@@ -62,67 +64,85 @@ func ignore(event):
 func get_node_children() -> Array:
 	var to_return = []
 	for node in get_children():
-		if node.name == "ExitGraphNode" or not node is GraphNode:
+		if node.name == "0" or not node is StateGraphNode:
 			continue
 		to_return.append(node)
 	return to_return
 
+func get_stub_children() -> Array:
+	var to_return = []
+	for node in get_children():
+		if not node is StateStubGraphNode:
+			continue
+		if not node.is_stub:
+			continue
+		to_return.append(node)
+	return to_return
+
+func is_stub_name(n: String) -> bool:
+	return n.split("_").size() > 1 and n.split("_")[1] == "stub"
+
+func remove_stub_suffix(n: String) -> String:
+	if is_stub_name(n):
+		return n.split("_")[0]
+	else:
+		return n
+
 func export_dict():
 	# get interesting children
 	var node_children = get_node_children()
+	var stub_children = get_stub_children()
 	
+	# {
+	#	name : {
+	#		choice_text : target_name
+	#	}
+	# }
+	var name_to_choice_connections = {}
 	
-	# number each state with an ID ( needed for export )
-	var cur_state: int = 1 # 0 is the exit state
-	var name_to_state_number: Dictionary = {
-		"ExitGraphNode" : 0
-	}
-	for node in node_children:
-		name_to_state_number[node.name] = cur_state
-		cur_state += 1
+	# does NOT have stub suffix
+	# {
+	#	name : "3"
+	# }
+	var name_to_next_state = {}
 	
-	
-	# track all connections relative to name of node
-	var name_to_incoming_connections: Dictionary = {}	
-	# state connections in a dictionary
-	#{
-	#	choice_text : target_node_name
-	#}
-	var name_to_choice_connections: Dictionary = {}
-	
-	
-	
-	for connection in get_connection_list():
-		name_to_incoming_connections[connection["to"]] = name_to_state_number[connection["from"]]
+	for c in get_connection_list():
+		var from = c["from"]
+		var from_port: int = c["from_port"]
+		var to = c["to"]
+		var to_port: int = c["to_port"]
+		
+		if is_stub_name(from):
+			from = remove_stub_suffix(from)
+			if name_to_next_state.has(from):
+				printerr("WARNING: state ", get_node(from + "_stub").text, " has two outbound connections")
+			name_to_next_state[from] = remove_stub_suffix(to)
+			continue
 
-		var key = get_node(connection["from"]).choices[connection["from_port"]]
-		var value = name_to_state_number[connection["to"]]
-#		print(name_to_choice_connections.has(connection["from"]),"	",key)
-		if not name_to_choice_connections.has(connection["from"]):
-			name_to_choice_connections[connection["from"]] = {
-				key : value
-			}
-		else:
-			name_to_choice_connections[connection["from"]] = { key : value }
-#		print(name_to_choice_connections)
-
-	cur_state = 1
-	print(name_to_state_number)
+		if not name_to_choice_connections.has(from):
+			name_to_choice_connections[from] = {}
+		name_to_choice_connections[from][get_node(from).choices[from_port]] = remove_stub_suffix(to)
 	
 	for node in node_children:
+		out_dict[node.name] = {}
+		var state_data = out_dict[node.name]
 		
-		var choices_dict: Dictionary = {}
-		if not name_to_choice_connections.has(node.name):
-			printerr("Warning: node '", node.text, "' does not have any connections")
+		state_data["state"] = node.state
+		state_data["text"] = node.text
+		state_data["choices"] = name_to_choice_connections[node.name]
+	
+	for stub in stub_children:
+		var stub_name = remove_stub_suffix(stub.name)
+		out_dict[stub_name] = {}
+		var state_data = out_dict[stub_name]
+		
+		state_data["state"] = stub.state
+		state_data["text"] = stub.text
+		
+		if name_to_next_state.has(stub_name):
+			state_data["next"] = name_to_next_state[stub_name]
 		else:
-			choices_dict = name_to_choice_connections[node.name]
-		
-		out_dict[cur_state] = {
-			"state" : node.state,
-			"text" : node.text,
-			"choices" : choices_dict
-		}
-		cur_state += 1
+			state_data["choices"] = "inherit"
 	
 	# save graph data for opening
 	out_dict["savedata"] = {
@@ -136,54 +156,84 @@ func export_dict():
 	for node in node_children:
 		write_node(node.name, node, out_dict["savedata"])
 	
-	write_node($ExitGraphNode.name, $ExitGraphNode, out_dict["savedata"])
+	for node in stub_children:
+		write_stub_node(node.name, node, out_dict["savedata"])
+	
+	write_node("1", get_node("1"), out_dict["savedata"])
+	write_node("0", get_node("0"), out_dict["savedata"])
 	
 	for connection in get_connection_list():
 		out_dict["savedata"]["connections"].append(connection)
 
-func write_node(node_name: String, node_ref: GraphNode, save_data: Dictionary):
+func write_stub_node(node_name: String, node_ref: GraphNode, save_data: Dictionary):
 	save_data["names_to_offsets"][node_name] = {
 		"x": node_ref.offset.x,
 		"y": node_ref.offset.y
 	}
-	save_data["names_to_choices"][node_name] = node_ref.choices
 	save_data["names_to_state"][node_name] = node_ref.state
 	save_data["names_to_text"][node_name] = node_ref.text
 
+func write_node(node_name: String, node_ref: GraphNode, save_data: Dictionary):
+	write_stub_node(node_name, node_ref, save_data)
+	save_data["names_to_choices"][node_name] = node_ref.choices
+	
+
 func load_savedata(savedata_dict: Dictionary):
 	var node_children = get_node_children()
+	var stub_children = get_stub_children()
+	
+	var greatest_id_seen: int = 0
+	
 	clear_connections()
 	for node in node_children:
-		if node.name == "InitialGraphNode":
+		if node.name == "1":
 			continue
 		node.name = "__GARBAGE"
 		node.queue_free()
+	for node_stub in stub_children:
+		node_stub.name = "__GARBAGE_stub"
+		node_stub.queue_free()
 	
 	for cur_name in savedata_dict["names_to_offsets"].keys():
-		if cur_name == "InitialGraphNode" or cur_name == "ExitGraphNode":
+		if cur_name == "0" or cur_name == "1":
 			continue
-		var cur_graph_node: GraphNode = preload("res://StateGraphNode.tscn").instance()
+		var cur_graph_node: GraphNode
+		var is_stub: bool = false
+		if is_stub_name(cur_name):
+			greatest_id_seen = max(greatest_id_seen, float(cur_name.split("_")[0]))
+			cur_graph_node = preload("res://StateStubGraphNode.tscn").instance()
+			is_stub = true
+		else:
+			greatest_id_seen = max(greatest_id_seen, float(cur_name))
+			cur_graph_node = preload("res://StateGraphNode.tscn").instance()
 		cur_graph_node.name = cur_name
 		add_child(cur_graph_node)
-		update_node(cur_name, cur_graph_node, savedata_dict)
+		if is_stub:
+			update_stub_node(cur_name, cur_graph_node, savedata_dict)
+		else:
+			update_node(cur_name, cur_graph_node, savedata_dict)
 	
-	update_node($InitialGraphNode.name, $InitialGraphNode, savedata_dict)
-	update_node($ExitGraphNode.name, $ExitGraphNode, savedata_dict)
+	update_node("1", get_node("1"), savedata_dict)
+	update_node("0", get_node("0"), savedata_dict)
 	
 
 	for connection in savedata_dict["connections"]:
 # warning-ignore:return_value_discarded
 		connect_node(connection["from"], connection["from_port"], connection["to"], connection["to_port"])
+	
+	emit_signal("new_greatest_id", greatest_id_seen)
 
-
-
-func update_node(node_name: String, node_ref: GraphNode, save_data: Dictionary):
+func update_stub_node(node_name: String, node_ref: GraphNode, save_data: Dictionary):
 	var offset_dict = save_data["names_to_offsets"][node_name]
 	node_ref.offset.x = offset_dict["x"]
 	node_ref.offset.y = offset_dict["y"]
-	node_ref.choices = save_data["names_to_choices"][node_name]
 	node_ref.state = save_data["names_to_state"][node_name]
 	node_ref.text = save_data["names_to_text"][node_name]
+
+func update_node(node_name: String, node_ref: GraphNode, save_data: Dictionary):
+	update_stub_node(node_name, node_ref, save_data)
+	node_ref.choices = save_data["names_to_choices"][node_name]
+	
 
 func _on_GraphEdit_disconnection_request(from, from_slot, to, to_slot):
 	disconnect_node(from, from_slot, to, to_slot)

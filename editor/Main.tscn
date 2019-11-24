@@ -39,17 +39,25 @@ size_flags_vertical = 3
 scroll_offset = Vector2( 0, -20 )
 script = ExtResource( 2 )
 
-[node name="InitialGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 3 )]
+[node name="1" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 3 )]
 margin_top = 20.0
 margin_right = 200.0
 margin_bottom = 120.0
 mouse_filter = 1
-slot/0/left_enabled = false
-slot/0/left_color = Color( 1, 1, 1, 1 )
-slot/0/right_enabled = false
-slot/0/right_color = Color( 1, 1, 1, 1 )
+resizable = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 0, 1, 0, 1 )
+slot/0/right_type = 0
+slot/0/right_color = Color( 0, 1, 0, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
 
-[node name="ExitGraphNode" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 4 )]
+[node name="0" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 4 )]
 margin_left = 500.0
 margin_top = 20.0
 margin_right = 700.0
@@ -87,8 +95,9 @@ graph_edit_path = NodePath("../VBoxContainer/GraphEdit")
 [connection signal="save_menu" from="UI/VBoxContainer/Menu/FileButton" to="UI/FileDialog" method="_on_FileButton_save_menu"]
 [connection signal="connection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_connection_request"]
 [connection signal="disconnection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_disconnection_request"]
-[connection signal="close_request" from="UI/VBoxContainer/GraphEdit/InitialGraphNode" to="UI/VBoxContainer/GraphEdit/InitialGraphNode" method="_on_StateGraphNode_close_request"]
-[connection signal="resize_request" from="UI/VBoxContainer/GraphEdit/InitialGraphNode" to="UI/VBoxContainer/GraphEdit/InitialGraphNode" method="_on_StateGraphNode_resize_request"]
-[connection signal="sort_children" from="UI/VBoxContainer/GraphEdit/InitialGraphNode" to="UI/VBoxContainer/GraphEdit/InitialGraphNode" method="_on_StateGraphNode_sort_children"]
+[connection signal="new_greatest_id" from="UI/VBoxContainer/GraphEdit" to="UI/PopupMenu" method="_on_GraphEdit_new_greatest_id"]
+[connection signal="close_request" from="UI/VBoxContainer/GraphEdit/1" to="UI/VBoxContainer/GraphEdit/1" method="_on_StateGraphNode_close_request"]
+[connection signal="resize_request" from="UI/VBoxContainer/GraphEdit/1" to="UI/VBoxContainer/GraphEdit/1" method="_on_StateGraphNode_resize_request"]
+[connection signal="sort_children" from="UI/VBoxContainer/GraphEdit/1" to="UI/VBoxContainer/GraphEdit/1" method="_on_StateGraphNode_sort_children"]
 [connection signal="file_selected" from="UI/FileDialog" to="UI/FileDialog" method="_on_FileDialog_file_selected"]
 [connection signal="id_pressed" from="UI/PopupMenu" to="UI/PopupMenu" method="_on_PopupMenu_id_pressed"]
