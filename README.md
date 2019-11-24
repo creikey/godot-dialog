@@ -1,6 +1,8 @@
 # godot-dialog
 A simple system for conversational dialog, featuring a full fledged editor for none programmers and an example json parser
 
+![example image](https://raw.githubusercontent.com/creikey/godot-dialog/master/cover-image.png)
+
 ## Format specification
 
 ### Definitions
