@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://StateGraphNode.gd" type="Script" id=1]
-[ext_resource path="res://StateStubGraphNode.tscn" type="PackedScene" id=2]
+[ext_resource path="res://StateStubGraphNode.tscn" type="PackedScene" id=1]
+[ext_resource path="res://StateGraphNode.gd" type="Script" id=2]
 
-[node name="StateGraphNode" instance=ExtResource( 2 )]
+[node name="StateGraphNode" index="0" instance=ExtResource( 1 )]
 title = "State"
 slot/0/right_enabled = false
 slot/2/left_enabled = false
@@ -12,14 +12,18 @@ slot/2/left_color = Color( 1, 1, 1, 1 )
 slot/2/right_enabled = false
 slot/2/right_type = 0
 slot/2/right_color = Color( 1, 1, 1, 1 )
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 is_stub = false
+
+[node name="TextLineEdit" parent="." index="1"]
+margin_top = 48.0
+margin_bottom = 72.0
 
 [node name="IncrementDecrement" type="HBoxContainer" parent="." index="2"]
 margin_left = 16.0
-margin_top = 74.0
+margin_top = 73.0
 margin_right = 233.0
-margin_bottom = 94.0
+margin_bottom = 93.0
 
 [node name="Increment" type="Button" parent="IncrementDecrement" index="0"]
 margin_right = 106.0
@@ -32,6 +36,6 @@ margin_left = 110.0
 margin_right = 217.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
-text = "+"
+text = "-"
 [connection signal="pressed" from="IncrementDecrement/Increment" to="." method="_on_Increment_pressed"]
 [connection signal="pressed" from="IncrementDecrement/Decrement" to="." method="_on_Decrement_pressed"]
