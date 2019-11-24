@@ -1,27 +1,29 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://parser/DialogLabel.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
-[ext_resource path="res://parser/ChoiceButton.tscn" type="PackedScene" id=4]
-[ext_resource path="res://parser/DialogParser.gd" type="Script" id=5]
+[ext_resource path="res://theme.tres" type="Theme" id=1]
+[ext_resource path="res://parser/DialogParser.gd" type="Script" id=2]
+[ext_resource path="res://parser/ChoiceButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://parser/DialogLabel.gd" type="Script" id=4]
+[ext_resource path="res://icon.png" type="Texture" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.254902, 0.254902, 0.254902, 1 )
+bg_color = Color( 0.105882, 0.121569, 0.14902, 0 )
 
 [node name="DialogParser" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 1 )
 custom_styles/panel = SubResource( 1 )
-script = ExtResource( 5 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 dialog_label_path = NodePath("VBoxContainer/CenterContainer/VBoxContainer/DialogLabel")
 emotion_label_path = NodePath("VBoxContainer/CenterContainer/VBoxContainer/EmotionLabel")
 choice_button_hbox_path = NodePath("VBoxContainer/ChoiceButtons")
-choice_button = ExtResource( 4 )
+choice_button = ExtResource( 3 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 1024.0
@@ -47,7 +49,7 @@ margin_bottom = 14.0
 text = "testing"
 align = 1
 autowrap = true
-script = ExtResource( 1 )
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -56,7 +58,7 @@ __meta__ = {
 margin_top = 18.0
 margin_right = 64.0
 margin_bottom = 82.0
-texture = ExtResource( 2 )
+texture = ExtResource( 5 )
 
 [node name="EmotionLabel" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer"]
 margin_top = 86.0
@@ -80,20 +82,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button1" parent="VBoxContainer/ChoiceButtons" instance=ExtResource( 4 )]
+[node name="Button1" parent="VBoxContainer/ChoiceButtons" instance=ExtResource( 3 )]
 margin_bottom = 100.0
 
-[node name="Button2" parent="VBoxContainer/ChoiceButtons" instance=ExtResource( 4 )]
+[node name="Button2" parent="VBoxContainer/ChoiceButtons" instance=ExtResource( 3 )]
 margin_left = 257.0
 margin_right = 510.0
 margin_bottom = 100.0
 
-[node name="Button3" parent="VBoxContainer/ChoiceButtons" instance=ExtResource( 4 )]
+[node name="Button3" parent="VBoxContainer/ChoiceButtons" instance=ExtResource( 3 )]
 margin_left = 514.0
 margin_right = 767.0
 margin_bottom = 100.0
 
-[node name="Button4" parent="VBoxContainer/ChoiceButtons" instance=ExtResource( 4 )]
+[node name="Button4" parent="VBoxContainer/ChoiceButtons" instance=ExtResource( 3 )]
 margin_left = 771.0
 margin_right = 1024.0
 margin_bottom = 100.0

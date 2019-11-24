@@ -1,0 +1,96 @@
+[gd_resource type="Theme" load_steps=12 format=2]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.2, 0.239216, 0.309804, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.160784, 0.196078, 0.254902, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.933333, 0.423529, 0.301961, 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 23.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.239216, 0.352941, 0.501961, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+
+[sub_resource type="StyleBoxFlat" id=9]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 23.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.239216, 0.352941, 0.501961, 1 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0.160784, 0.196078, 0.254902, 1 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.239216, 0.352941, 0.501961, 1 )
+
+[resource]
+Button/colors/font_color = Color( 0.878431, 0.984314, 0.988235, 1 )
+Button/colors/font_color_disabled = Color( 0.901961, 0.901961, 0.901961, 0.2 )
+Button/colors/font_color_hover = Color( 0.933333, 0.423529, 0.301961, 1 )
+Button/colors/font_color_pressed = Color( 0.239216, 0.352941, 0.501961, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = null
+Button/styles/disabled = SubResource( 1 )
+Button/styles/focus = SubResource( 6 )
+Button/styles/hover = SubResource( 3 )
+Button/styles/normal = SubResource( 4 )
+Button/styles/pressed = SubResource( 5 )
+GraphEdit/colors/activity = Color( 1, 1, 1, 1 )
+GraphEdit/colors/grid_major = Color( 0.596078, 0.756863, 0.85098, 0.235294 )
+GraphEdit/colors/grid_minor = Color( 0.239216, 0.352941, 0.501961, 0.235294 )
+GraphEdit/constants/bezier_len_neg = 160
+GraphEdit/constants/bezier_len_pos = 80
+GraphEdit/constants/port_grab_distance_horizontal = 48
+GraphEdit/constants/port_grab_distance_vertical = 6
+GraphEdit/icons/minus = null
+GraphEdit/icons/more = null
+GraphEdit/icons/reset = null
+GraphEdit/icons/snap = null
+GraphEdit/styles/bg = SubResource( 7 )
+GraphNode/colors/close_color = Color( 0, 0, 0, 1 )
+GraphNode/colors/title_color = Color( 0, 0, 0, 1 )
+GraphNode/constants/close_offset = 18
+GraphNode/constants/port_offset = 3
+GraphNode/constants/separation = 1
+GraphNode/constants/title_offset = 20
+GraphNode/fonts/title_font = null
+GraphNode/icons/close = null
+GraphNode/icons/port = null
+GraphNode/icons/resizer = null
+GraphNode/styles/breakpoint = null
+GraphNode/styles/comment = null
+GraphNode/styles/commentfocus = SubResource( 10 )
+GraphNode/styles/defaultfocus = SubResource( 10 )
+GraphNode/styles/defaultframe = null
+GraphNode/styles/frame = SubResource( 9 )
+GraphNode/styles/position = SubResource( 8 )
+GraphNode/styles/selectedframe = SubResource( 10 )
+PanelContainer/styles/panel = SubResource( 12 )
+WindowDialog/colors/title_color = Color( 0.878431, 0.984314, 0.988235, 1 )
+WindowDialog/constants/close_h_ofs = 23
+WindowDialog/constants/close_v_ofs = 20
+WindowDialog/constants/scaleborder_size = 13
+WindowDialog/constants/title_height = 29
+WindowDialog/fonts/title_font = null
+WindowDialog/icons/close = null
+WindowDialog/icons/close_highlight = null
+WindowDialog/styles/panel = SubResource( 11 )

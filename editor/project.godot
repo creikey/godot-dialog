@@ -40,4 +40,5 @@ g_new_state={
 
 [rendering]
 
+environment/default_clear_color=Color( 0.160784, 0.196078, 0.254902, 1 )
 environment/default_environment="res://default_env.tres"
