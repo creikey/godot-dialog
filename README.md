@@ -3,6 +3,10 @@ A simple system for conversational dialog, featuring a full fledged editor for n
 
 ![example image](https://raw.githubusercontent.com/creikey/godot-dialog/master/cover-image.png)
 
+## Download
+
+https://creikey.itch.io/godot-dialog
+
 ## Format specification
 
 ### Definitions
