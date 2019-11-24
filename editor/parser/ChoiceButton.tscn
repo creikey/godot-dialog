@@ -1,0 +1,10 @@
+[gd_scene format=2]
+
+[node name="ChoiceButton" type="Button"]
+margin_right = 253.0
+margin_bottom = 113.0
+size_flags_horizontal = 3
+text = "continue"
+__meta__ = {
+"_edit_use_anchors_": false
+}

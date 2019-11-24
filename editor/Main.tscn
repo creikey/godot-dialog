@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://GraphEdit.gd" type="Script" id=2]
@@ -7,63 +7,12 @@
 [ext_resource path="res://FileButton.gd" type="Script" id=5]
 [ext_resource path="res://FileDialog.gd" type="Script" id=6]
 [ext_resource path="res://PopupMenu.gd" type="Script" id=7]
+[ext_resource path="res://parser/DialogParser.tscn" type="PackedScene" id=8]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="UI" type="CanvasLayer" parent="."]
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Menu" type="HBoxContainer" parent="UI/VBoxContainer"]
-margin_right = 1024.0
-margin_bottom = 20.0
-
-[node name="FileButton" type="MenuButton" parent="UI/VBoxContainer/Menu"]
-margin_right = 35.0
-margin_bottom = 20.0
-text = "File"
-items = [ "Load", null, 0, false, false, 1, 0, null, "", false, "Save", null, 0, false, false, 2, 0, null, "", false ]
-script = ExtResource( 5 )
-
-[node name="GraphEdit" type="GraphEdit" parent="UI/VBoxContainer"]
-margin_top = 24.0
-margin_right = 1024.0
-margin_bottom = 600.0
-size_flags_vertical = 3
-scroll_offset = Vector2( 0, -20 )
-script = ExtResource( 2 )
-
-[node name="1" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 3 )]
-margin_top = 20.0
-margin_right = 200.0
-margin_bottom = 120.0
-mouse_filter = 1
-resizable = true
-slot/0/left_enabled = true
-slot/0/left_type = 0
-slot/0/left_color = Color( 0, 1, 0, 1 )
-slot/0/right_type = 0
-slot/0/right_color = Color( 0, 1, 0, 1 )
-slot/1/left_enabled = false
-slot/1/left_type = 0
-slot/1/left_color = Color( 1, 1, 1, 1 )
-slot/1/right_enabled = false
-slot/1/right_type = 0
-slot/1/right_color = Color( 1, 1, 1, 1 )
-
-[node name="0" parent="UI/VBoxContainer/GraphEdit" instance=ExtResource( 4 )]
-margin_left = 500.0
-margin_top = 20.0
-margin_right = 700.0
-margin_bottom = 140.0
-mouse_filter = 1
-offset = Vector2( 500, 0 )
 
 [node name="FileDialog" type="FileDialog" parent="UI"]
 anchor_left = 0.5
@@ -83,21 +32,84 @@ script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-graph_edit_path = NodePath("../VBoxContainer/GraphEdit")
+graph_edit_path = NodePath("../VSplitContainer/VBoxContainer/GraphEdit")
 
 [node name="PopupMenu" type="PopupMenu" parent="UI"]
 margin_right = 20.0
 margin_bottom = 20.0
 items = [ "state", null, 0, false, false, 0, 0, null, "", false, "state stub", null, 0, false, false, 1, 0, null, "", false ]
 script = ExtResource( 7 )
-graph_edit_path = NodePath("../VBoxContainer/GraphEdit")
-[connection signal="load_menu" from="UI/VBoxContainer/Menu/FileButton" to="UI/FileDialog" method="_on_FileButton_load_menu"]
-[connection signal="save_menu" from="UI/VBoxContainer/Menu/FileButton" to="UI/FileDialog" method="_on_FileButton_save_menu"]
-[connection signal="connection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_connection_request"]
-[connection signal="disconnection_request" from="UI/VBoxContainer/GraphEdit" to="UI/VBoxContainer/GraphEdit" method="_on_GraphEdit_disconnection_request"]
-[connection signal="new_greatest_id" from="UI/VBoxContainer/GraphEdit" to="UI/PopupMenu" method="_on_GraphEdit_new_greatest_id"]
-[connection signal="close_request" from="UI/VBoxContainer/GraphEdit/1" to="UI/VBoxContainer/GraphEdit/1" method="_on_StateGraphNode_close_request"]
-[connection signal="resize_request" from="UI/VBoxContainer/GraphEdit/1" to="UI/VBoxContainer/GraphEdit/1" method="_on_StateGraphNode_resize_request"]
-[connection signal="sort_children" from="UI/VBoxContainer/GraphEdit/1" to="UI/VBoxContainer/GraphEdit/1" method="_on_StateGraphNode_sort_children"]
+graph_edit_path = NodePath("../VSplitContainer/VBoxContainer/GraphEdit")
+
+[node name="VSplitContainer" type="VSplitContainer" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/VSplitContainer"]
+margin_right = 1024.0
+margin_bottom = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="HBoxContainer" parent="UI/VSplitContainer/VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 20.0
+
+[node name="FileButton" type="MenuButton" parent="UI/VSplitContainer/VBoxContainer/Menu"]
+margin_right = 35.0
+margin_bottom = 20.0
+text = "File"
+items = [ "Load", null, 0, false, false, 1, 0, null, "", false, "Save", null, 0, false, false, 2, 0, null, "", false ]
+script = ExtResource( 5 )
+
+[node name="GraphEdit" type="GraphEdit" parent="UI/VSplitContainer/VBoxContainer"]
+margin_top = 24.0
+margin_right = 1024.0
+margin_bottom = 24.0
+size_flags_vertical = 3
+script = ExtResource( 2 )
+
+[node name="1" parent="UI/VSplitContainer/VBoxContainer/GraphEdit" instance=ExtResource( 3 )]
+margin_right = 200.0
+margin_bottom = 100.0
+mouse_filter = 1
+resizable = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 0, 1, 0, 1 )
+slot/0/right_type = 0
+slot/0/right_color = Color( 0, 1, 0, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+
+[node name="0" parent="UI/VSplitContainer/VBoxContainer/GraphEdit" instance=ExtResource( 4 )]
+margin_left = 500.0
+margin_right = 700.0
+margin_bottom = 120.0
+mouse_filter = 1
+offset = Vector2( 500, 0 )
+
+[node name="DialogParser" parent="UI/VSplitContainer" instance=ExtResource( 8 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 36.0
+margin_right = 1024.0
+margin_bottom = 600.0
 [connection signal="file_selected" from="UI/FileDialog" to="UI/FileDialog" method="_on_FileDialog_file_selected"]
 [connection signal="id_pressed" from="UI/PopupMenu" to="UI/PopupMenu" method="_on_PopupMenu_id_pressed"]
+[connection signal="load_menu" from="UI/VSplitContainer/VBoxContainer/Menu/FileButton" to="UI/FileDialog" method="_on_FileButton_load_menu"]
+[connection signal="save_menu" from="UI/VSplitContainer/VBoxContainer/Menu/FileButton" to="UI/FileDialog" method="_on_FileButton_save_menu"]
+[connection signal="connection_request" from="UI/VSplitContainer/VBoxContainer/GraphEdit" to="UI/VSplitContainer/VBoxContainer/GraphEdit" method="_on_GraphEdit_connection_request"]
+[connection signal="disconnection_request" from="UI/VSplitContainer/VBoxContainer/GraphEdit" to="UI/VSplitContainer/VBoxContainer/GraphEdit" method="_on_GraphEdit_disconnection_request"]
+[connection signal="new_greatest_id" from="UI/VSplitContainer/VBoxContainer/GraphEdit" to="UI/PopupMenu" method="_on_GraphEdit_new_greatest_id"]
+[connection signal="close_request" from="UI/VSplitContainer/VBoxContainer/GraphEdit/1" to="UI/VSplitContainer/VBoxContainer/GraphEdit/1" method="_on_StateGraphNode_close_request"]
+[connection signal="resize_request" from="UI/VSplitContainer/VBoxContainer/GraphEdit/1" to="UI/VSplitContainer/VBoxContainer/GraphEdit/1" method="_on_StateGraphNode_resize_request"]
+[connection signal="sort_children" from="UI/VSplitContainer/VBoxContainer/GraphEdit/1" to="UI/VSplitContainer/VBoxContainer/GraphEdit/1" method="_on_StateGraphNode_sort_children"]

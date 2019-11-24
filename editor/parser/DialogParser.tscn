@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://parser/DialogLabel.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://parser/ChoiceButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://parser/DialogParser.gd" type="Script" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.254902, 0.254902, 0.254902, 1 )
+
+[node name="DialogParser" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 496.0
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer"]
+margin_left = 480.0
+margin_top = 198.0
+margin_right = 544.0
+margin_bottom = 298.0
+
+[node name="DialogLabel" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+margin_right = 64.0
+margin_bottom = 14.0
+text = "testing"
+align = 1
+autowrap = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+texture_rect_path = NodePath("../CenterContainer/TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 64.0
+margin_bottom = 82.0
+texture = ExtResource( 2 )
+
+[node name="EmotionLabel" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+margin_top = 86.0
+margin_right = 64.0
+margin_bottom = 100.0
+text = "normal"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChoiceButtons" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 500.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button1" parent="VBoxContainer/ChoiceButtons" instance=ExtResource( 4 )]
+margin_bottom = 100.0
+
+[node name="Button2" parent="VBoxContainer/ChoiceButtons" instance=ExtResource( 4 )]
+margin_left = 257.0
+margin_right = 510.0
+margin_bottom = 100.0
+
+[node name="Button3" parent="VBoxContainer/ChoiceButtons" instance=ExtResource( 4 )]
+margin_left = 514.0
+margin_right = 767.0
+margin_bottom = 100.0
+
+[node name="Button4" parent="VBoxContainer/ChoiceButtons" instance=ExtResource( 4 )]
+margin_left = 771.0
+margin_right = 1024.0
+margin_bottom = 100.0
