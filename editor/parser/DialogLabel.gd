@@ -1,7 +1,5 @@
 extends Label
 
-export (NodePath) var texture_rect_path
-
 var scrolling_text = "" setget set_scrolling_text
 
 func set_scrolling_text(new_scrolling_text):

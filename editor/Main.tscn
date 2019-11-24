@@ -44,13 +44,14 @@ graph_edit_path = NodePath("../VSplitContainer/VBoxContainer/GraphEdit")
 [node name="VSplitContainer" type="VSplitContainer" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+split_offset = 300
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/VSplitContainer"]
 margin_right = 1024.0
-margin_bottom = 24.0
+margin_bottom = 324.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -66,10 +67,17 @@ text = "File"
 items = [ "Load", null, 0, false, false, 1, 0, null, "", false, "Save", null, 0, false, false, 2, 0, null, "", false ]
 script = ExtResource( 5 )
 
+[node name="PlayButton" type="Button" parent="UI/VSplitContainer/VBoxContainer/Menu"]
+margin_left = 39.0
+margin_right = 101.0
+margin_bottom = 20.0
+text = "Preview"
+flat = true
+
 [node name="GraphEdit" type="GraphEdit" parent="UI/VSplitContainer/VBoxContainer"]
 margin_top = 24.0
 margin_right = 1024.0
-margin_bottom = 24.0
+margin_bottom = 324.0
 size_flags_vertical = 3
 script = ExtResource( 2 )
 
@@ -100,16 +108,18 @@ offset = Vector2( 500, 0 )
 [node name="DialogParser" parent="UI/VSplitContainer" instance=ExtResource( 8 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 36.0
+margin_top = 336.0
 margin_right = 1024.0
 margin_bottom = 600.0
 [connection signal="file_selected" from="UI/FileDialog" to="UI/FileDialog" method="_on_FileDialog_file_selected"]
 [connection signal="id_pressed" from="UI/PopupMenu" to="UI/PopupMenu" method="_on_PopupMenu_id_pressed"]
 [connection signal="load_menu" from="UI/VSplitContainer/VBoxContainer/Menu/FileButton" to="UI/FileDialog" method="_on_FileButton_load_menu"]
 [connection signal="save_menu" from="UI/VSplitContainer/VBoxContainer/Menu/FileButton" to="UI/FileDialog" method="_on_FileButton_save_menu"]
+[connection signal="pressed" from="UI/VSplitContainer/VBoxContainer/Menu/PlayButton" to="UI/VSplitContainer/VBoxContainer/GraphEdit" method="_on_PlayButton_pressed"]
 [connection signal="connection_request" from="UI/VSplitContainer/VBoxContainer/GraphEdit" to="UI/VSplitContainer/VBoxContainer/GraphEdit" method="_on_GraphEdit_connection_request"]
 [connection signal="disconnection_request" from="UI/VSplitContainer/VBoxContainer/GraphEdit" to="UI/VSplitContainer/VBoxContainer/GraphEdit" method="_on_GraphEdit_disconnection_request"]
 [connection signal="new_greatest_id" from="UI/VSplitContainer/VBoxContainer/GraphEdit" to="UI/PopupMenu" method="_on_GraphEdit_new_greatest_id"]
+[connection signal="to_run_dict" from="UI/VSplitContainer/VBoxContainer/GraphEdit" to="UI/VSplitContainer/DialogParser" method="_on_GraphEdit_to_run_dict"]
 [connection signal="close_request" from="UI/VSplitContainer/VBoxContainer/GraphEdit/1" to="UI/VSplitContainer/VBoxContainer/GraphEdit/1" method="_on_StateGraphNode_close_request"]
 [connection signal="resize_request" from="UI/VSplitContainer/VBoxContainer/GraphEdit/1" to="UI/VSplitContainer/VBoxContainer/GraphEdit/1" method="_on_StateGraphNode_resize_request"]
 [connection signal="sort_children" from="UI/VSplitContainer/VBoxContainer/GraphEdit/1" to="UI/VSplitContainer/VBoxContainer/GraphEdit/1" method="_on_StateGraphNode_sort_children"]

@@ -1,6 +1,7 @@
 extends GraphEdit
 
 signal new_greatest_id(greatest_id)
+signal to_run_dict(dict)
 
 # warning-ignore:unused_class_variable
 var out_dict: Dictionary
@@ -129,7 +130,10 @@ func export_dict():
 		
 		state_data["state"] = node.state
 		state_data["text"] = node.text
-		state_data["choices"] = name_to_choice_connections[node.name]
+		if not name_to_choice_connections.has(node.name):
+			state_data["choices"] = {}
+		else:
+			state_data["choices"] = name_to_choice_connections[node.name]
 	
 	for stub in stub_children:
 		var stub_name = remove_stub_suffix(stub.name)
@@ -182,7 +186,7 @@ func load_savedata(savedata_dict: Dictionary):
 	var node_children = get_node_children()
 	var stub_children = get_stub_children()
 	
-	var greatest_id_seen: int = 0
+	var greatest_id_seen: float = 0
 	
 	clear_connections()
 	for node in node_children:
@@ -238,3 +242,8 @@ func update_node(node_name: String, node_ref: GraphNode, save_data: Dictionary):
 func _on_GraphEdit_disconnection_request(from, from_slot, to, to_slot):
 	disconnect_node(from, from_slot, to, to_slot)
 	get_node(to).disconnected(get_node(from))
+
+
+func _on_PlayButton_pressed():
+	export_dict()
+	emit_signal("to_run_dict", out_dict)
