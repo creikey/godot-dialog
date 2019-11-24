@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
-[ext_resource path="res://GraphEdit.gd" type="Script" id=2]
-[ext_resource path="res://InitialGraphNode.tscn" type="PackedScene" id=3]
-[ext_resource path="res://ExitGraphNode.tscn" type="PackedScene" id=4]
-[ext_resource path="res://FileButton.gd" type="Script" id=5]
-[ext_resource path="res://FileDialog.gd" type="Script" id=6]
-[ext_resource path="res://PopupMenu.gd" type="Script" id=7]
+[ext_resource path="res://FileDialog.gd" type="Script" id=2]
+[ext_resource path="res://PopupMenu.gd" type="Script" id=3]
+[ext_resource path="res://FileButton.gd" type="Script" id=4]
+[ext_resource path="res://GraphEdit.gd" type="Script" id=5]
+[ext_resource path="res://InitialGraphNode.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ExitGraphNode.tscn" type="PackedScene" id=7]
 [ext_resource path="res://parser/DialogParser.tscn" type="PackedScene" id=8]
 
 [node name="Main" type="Node2D"]
@@ -28,7 +28,7 @@ filters = PoolStringArray( "*.json" )
 current_dir = "/home/creikey/Documents/projects/godot-dialog/editor"
 current_file = "dialog.json"
 current_path = "/home/creikey/Documents/projects/godot-dialog/editor/dialog.json"
-script = ExtResource( 6 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -38,7 +38,7 @@ graph_edit_path = NodePath("../VSplitContainer/VBoxContainer/GraphEdit")
 margin_right = 20.0
 margin_bottom = 20.0
 items = [ "state", null, 0, false, false, 0, 0, null, "", false, "state stub", null, 0, false, false, 1, 0, null, "", false ]
-script = ExtResource( 7 )
+script = ExtResource( 3 )
 graph_edit_path = NodePath("../VSplitContainer/VBoxContainer/GraphEdit")
 
 [node name="VSplitContainer" type="VSplitContainer" parent="UI"]
@@ -65,7 +65,7 @@ margin_right = 35.0
 margin_bottom = 20.0
 text = "File"
 items = [ "Load", null, 0, false, false, 1, 0, null, "", false, "Save", null, 0, false, false, 2, 0, null, "", false ]
-script = ExtResource( 5 )
+script = ExtResource( 4 )
 
 [node name="PlayButton" type="Button" parent="UI/VSplitContainer/VBoxContainer/Menu"]
 margin_left = 39.0
@@ -79,26 +79,14 @@ margin_top = 24.0
 margin_right = 1024.0
 margin_bottom = 324.0
 size_flags_vertical = 3
-script = ExtResource( 2 )
+script = ExtResource( 5 )
 
-[node name="1" parent="UI/VSplitContainer/VBoxContainer/GraphEdit" instance=ExtResource( 3 )]
+[node name="1" parent="UI/VSplitContainer/VBoxContainer/GraphEdit" instance=ExtResource( 6 )]
 margin_right = 200.0
 margin_bottom = 100.0
 mouse_filter = 1
-resizable = true
-slot/0/left_enabled = true
-slot/0/left_type = 0
-slot/0/left_color = Color( 0, 1, 0, 1 )
-slot/0/right_type = 0
-slot/0/right_color = Color( 0, 1, 0, 1 )
-slot/1/left_enabled = false
-slot/1/left_type = 0
-slot/1/left_color = Color( 1, 1, 1, 1 )
-slot/1/right_enabled = false
-slot/1/right_type = 0
-slot/1/right_color = Color( 1, 1, 1, 1 )
 
-[node name="0" parent="UI/VSplitContainer/VBoxContainer/GraphEdit" instance=ExtResource( 4 )]
+[node name="0" parent="UI/VSplitContainer/VBoxContainer/GraphEdit" instance=ExtResource( 7 )]
 margin_left = 500.0
 margin_right = 700.0
 margin_bottom = 120.0
