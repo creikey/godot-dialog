@@ -40,6 +40,7 @@ func set_state(new_state):
 	for choice in choices_to_add.keys():
 		var cur_button: Button = choice_button.instance()
 		cur_button.text = choice
+# warning-ignore:return_value_discarded
 		cur_button.connect("pressed", self, "_choice_button_pressed", [choices_to_add[choice]])
 		choice_button_hbox.add_child(cur_button)
 

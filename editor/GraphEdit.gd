@@ -111,7 +111,7 @@ func export_dict():
 		var from = c["from"]
 		var from_port: int = c["from_port"]
 		var to = c["to"]
-		var to_port: int = c["to_port"]
+		var _to_port: int = c["to_port"]
 		
 		if is_stub_name(from):
 			from = remove_stub_suffix(from)
