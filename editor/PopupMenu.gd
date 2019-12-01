@@ -19,7 +19,7 @@ func get_untaken_name() -> String:
 func add_graph_node(pack: PackedScene, suffix: String):
 	var graph_edit = get_node(graph_edit_path)
 	var cur_state: GraphNode = pack.instance()
-	cur_state.offset = global_mouse_position - Vector2(0, 200)
+	cur_state.offset = global_mouse_position + graph_edit.scroll_offset
 	# ensure name is unique among graph nodes ( innefficient, but hopefully will never slow down... )
 	var cur_name: String = get_untaken_name()
 	cur_state.name = cur_name + suffix
