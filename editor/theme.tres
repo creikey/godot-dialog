@@ -2,7 +2,7 @@
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="StyleBoxEmpty" id=6]
+[sub_resource type="StyleBoxEmpty" id=2]
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.2, 0.239216, 0.309804, 1 )
@@ -13,10 +13,10 @@ bg_color = Color( 0.160784, 0.196078, 0.254902, 1 )
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.933333, 0.423529, 0.301961, 1 )
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=7]
 content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_top = 23.0
@@ -27,16 +27,16 @@ border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=8]
 content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_top = 23.0
 content_margin_bottom = 10.0
 bg_color = Color( 0.239216, 0.352941, 0.501961, 1 )
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=9]
 
-[sub_resource type="StyleBoxFlat" id=12]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.160784, 0.196078, 0.254902, 1 )
 
 [sub_resource type="StyleBoxFlat" id=11]
@@ -50,7 +50,7 @@ Button/colors/font_color_pressed = Color( 0.239216, 0.352941, 0.501961, 1 )
 Button/constants/hseparation = 2
 Button/fonts/font = null
 Button/styles/disabled = SubResource( 1 )
-Button/styles/focus = SubResource( 6 )
+Button/styles/focus = SubResource( 2 )
 Button/styles/hover = SubResource( 3 )
 Button/styles/normal = SubResource( 4 )
 Button/styles/pressed = SubResource( 5 )
@@ -65,7 +65,7 @@ GraphEdit/icons/minus = null
 GraphEdit/icons/more = null
 GraphEdit/icons/reset = null
 GraphEdit/icons/snap = null
-GraphEdit/styles/bg = SubResource( 7 )
+GraphEdit/styles/bg = SubResource( 6 )
 GraphNode/colors/close_color = Color( 0, 0, 0, 1 )
 GraphNode/colors/title_color = Color( 0, 0, 0, 1 )
 GraphNode/constants/close_offset = 18
@@ -78,13 +78,13 @@ GraphNode/icons/port = null
 GraphNode/icons/resizer = null
 GraphNode/styles/breakpoint = null
 GraphNode/styles/comment = null
-GraphNode/styles/commentfocus = SubResource( 10 )
-GraphNode/styles/defaultfocus = SubResource( 10 )
+GraphNode/styles/commentfocus = SubResource( 7 )
+GraphNode/styles/defaultfocus = SubResource( 7 )
 GraphNode/styles/defaultframe = null
-GraphNode/styles/frame = SubResource( 9 )
-GraphNode/styles/position = SubResource( 8 )
-GraphNode/styles/selectedframe = SubResource( 10 )
-PanelContainer/styles/panel = SubResource( 12 )
+GraphNode/styles/frame = SubResource( 8 )
+GraphNode/styles/position = SubResource( 9 )
+GraphNode/styles/selectedframe = SubResource( 7 )
+PanelContainer/styles/panel = SubResource( 10 )
 WindowDialog/colors/title_color = Color( 0.878431, 0.984314, 0.988235, 1 )
 WindowDialog/constants/close_h_ofs = 23
 WindowDialog/constants/close_v_ofs = 20

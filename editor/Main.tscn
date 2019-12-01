@@ -117,18 +117,6 @@ script = ExtResource( 7 )
 margin_right = 200.0
 margin_bottom = 103.0
 mouse_filter = 1
-resizable = true
-slot/0/left_enabled = true
-slot/0/left_type = 0
-slot/0/left_color = Color( 0, 1, 0, 1 )
-slot/0/right_type = 0
-slot/0/right_color = Color( 0, 1, 0, 1 )
-slot/1/left_enabled = false
-slot/1/left_type = 0
-slot/1/left_color = Color( 1, 1, 1, 1 )
-slot/1/right_enabled = false
-slot/1/right_type = 0
-slot/1/right_color = Color( 1, 1, 1, 1 )
 
 [node name="0" parent="UI/VSplitContainer/VBoxContainer/GraphEdit" instance=ExtResource( 9 )]
 margin_left = 500.0

@@ -91,6 +91,9 @@ func update_notice_label():
 func _on_StateGraphNode_sort_children():
 	rect_size.y = 0
 
+func _on_StateGraphNode_resize_request(new_minsize):
+	_on_StateStubGraphNode_resize_request(new_minsize)
+
 func _on_TextLineEdit_text_changed(new_text):
 	if not is_initial:
 		title = new_text
