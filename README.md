@@ -1,5 +1,5 @@
 # godot-dialog
-A simple system for conversational dialog, featuring a full fledged editor for none programmers and an example json parser
+A simple system for conversational dialog, featuring a full fledged editor for none programmers and an example json parser. To add a new node you simply right click on the node graph, to pan use middle mouse button, and click and drag to move nodes around or connect them to one another.
 
 ![example image](https://raw.githubusercontent.com/creikey/godot-dialog/master/cover-image.png)
 
