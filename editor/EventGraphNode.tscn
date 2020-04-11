@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://EventGraphNode.gd" type="Script" id=1]
+[ext_resource path="res://theme.tres" type="Theme" id=2]
+
+[node name="EventGraphNode" type="GraphNode"]
+margin_right = 201.0
+margin_bottom = 60.0
+title = "Event"
+show_close = true
+resizable = true
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="."]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 185.0
+margin_bottom = 48.0
+theme = ExtResource( 2 )
+placeholder_text = "Event Name"
+[connection signal="close_request" from="." to="." method="_on_EventGraphNode_close_request"]
+[connection signal="resize_request" from="." to="." method="_on_EventGraphNode_resize_request"]
+[connection signal="sort_children" from="." to="." method="_on_EventGraphNode_sort_children"]
+[connection signal="text_changed" from="LineEdit" to="." method="_on_LineEdit_text_changed"]

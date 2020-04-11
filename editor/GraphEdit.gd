@@ -80,11 +80,22 @@ func get_stub_children() -> Array:
 		to_return.append(node)
 	return to_return
 
+func get_event_children() -> Array:
+	var to_return = []
+	for node in get_children():
+		if not node is EventGraphNode:
+			continue
+		to_return.append(node)
+	return to_return
+
 func is_stub_name(n: String) -> bool:
 	return n.split("_").size() > 1 and n.split("_")[1] == "stub"
 
-func remove_stub_suffix(n: String) -> String:
-	if is_stub_name(n):
+func is_event_name(n: String) -> bool:
+	return n.split("_").size() > 1 and n.split("_")[1] == "event"
+
+func remove_suffixes(n: String) -> String:
+	if is_stub_name(n) or is_event_name(n):
 		return n.split("_")[0]
 	else:
 		return n
@@ -93,6 +104,7 @@ func export_dict():
 	# get interesting children
 	var node_children = get_node_children()
 	var stub_children = get_stub_children()
+	var event_children = get_event_children()
 	
 	# {
 	#	name : {
@@ -114,15 +126,20 @@ func export_dict():
 		var _to_port: int = c["to_port"]
 		
 		if is_stub_name(from):
-			from = remove_stub_suffix(from)
+			from = remove_suffixes(from)
 			if name_to_next_state.has(from):
 				printerr("WARNING: state ", get_node(from + "_stub").text, " has two outbound connections")
-			name_to_next_state[from] = remove_stub_suffix(to)
+			name_to_next_state[from] = remove_suffixes(to)
 			continue
+		elif is_event_name(from):
+			from = remove_suffixes(from)
+			if name_to_next_state.has(from):
+				printerr("WARNING: event ", get_node(from + "_event").text, " has two outbound connections")
+			name_to_next_state[from] = remove_suffixes(to)
 
 		if not name_to_choice_connections.has(from):
 			name_to_choice_connections[from] = {}
-		name_to_choice_connections[from][get_node(from).choices[from_port]] = remove_stub_suffix(to)
+		name_to_choice_connections[from][get_node(from).choices[from_port]] = remove_suffixes(to)
 	
 	for node in node_children:
 		out_dict[node.name] = {}
@@ -135,8 +152,20 @@ func export_dict():
 		else:
 			state_data["choices"] = name_to_choice_connections[node.name]
 	
+	for event in event_children:
+		var event_name = remove_suffixes(event.name)
+		out_dict[event_name] = {}
+		var state_data = out_dict[event_name]
+		
+		state_data["event"] = event.text
+		
+		if name_to_next_state.has(event_name):
+			state_data["next"]  = name_to_next_state[event_name]
+		else:
+			state_data["choices"] = "inherit"
+	
 	for stub in stub_children:
-		var stub_name = remove_stub_suffix(stub.name)
+		var stub_name = remove_suffixes(stub.name)
 		out_dict[stub_name] = {}
 		var state_data = out_dict[stub_name]
 		
@@ -154,6 +183,7 @@ func export_dict():
 		"names_to_choices": {},
 		"names_to_state": {},
 		"names_to_text": {},
+		"names_to_event": {},
 		"connections": []
 	}
 	
@@ -163,17 +193,25 @@ func export_dict():
 	for node in stub_children:
 		write_stub_node(node.name, node, out_dict["savedata"])
 	
+	for node in event_children:
+		write_event_node(node.name, node, out_dict["savedata"])
+	
 	write_node("1", get_node("1"), out_dict["savedata"])
 	write_node("0", get_node("0"), out_dict["savedata"])
 	
 	for connection in get_connection_list():
 		out_dict["savedata"]["connections"].append(connection)
 
-func write_stub_node(node_name: String, node_ref: GraphNode, save_data: Dictionary):
+func write_event_node(node_name: String, node_ref: GraphNode, save_data: Dictionary):
 	save_data["names_to_offsets"][node_name] = {
 		"x": node_ref.offset.x,
 		"y": node_ref.offset.y
 	}
+	if node_ref is EventGraphNode:
+		save_data["names_to_event"][node_name] = node_ref.text
+
+func write_stub_node(node_name: String, node_ref: GraphNode, save_data: Dictionary):
+	write_event_node(node_name, node_ref, save_data)
 	save_data["names_to_state"][node_name] = node_ref.state
 	save_data["names_to_text"][node_name] = node_ref.text
 
@@ -185,6 +223,7 @@ func write_node(node_name: String, node_ref: GraphNode, save_data: Dictionary):
 func load_savedata(savedata_dict: Dictionary):
 	var node_children = get_node_children()
 	var stub_children = get_stub_children()
+	var event_children = get_event_children()
 	
 	var greatest_id_seen: float = 0
 	
@@ -197,13 +236,21 @@ func load_savedata(savedata_dict: Dictionary):
 	for node_stub in stub_children:
 		node_stub.name = "__GARBAGE_stub"
 		node_stub.queue_free()
+	for node_event in event_children:
+		node_event.name = "__GARBAGE_event"
+		node_event.queue_free()
 	
 	for cur_name in savedata_dict["names_to_offsets"].keys():
 		if cur_name == "0" or cur_name == "1":
 			continue
 		var cur_graph_node: GraphNode
 		var is_stub: bool = false
-		if is_stub_name(cur_name):
+		var is_event: bool = false
+		if is_event_name(cur_name):
+			greatest_id_seen = max(greatest_id_seen, float(cur_name.split("_")[0]))
+			cur_graph_node = preload("res://EventGraphNode.tscn").instance()
+			is_event = true
+		elif is_stub_name(cur_name):
 			greatest_id_seen = max(greatest_id_seen, float(cur_name.split("_")[0]))
 			cur_graph_node = preload("res://StateStubGraphNode.tscn").instance()
 			is_stub = true
@@ -212,7 +259,9 @@ func load_savedata(savedata_dict: Dictionary):
 			cur_graph_node = preload("res://StateGraphNode.tscn").instance()
 		cur_graph_node.name = cur_name
 		add_child(cur_graph_node)
-		if is_stub:
+		if is_event:
+			update_event_node(cur_name, cur_graph_node, savedata_dict)
+		elif is_stub:
 			update_stub_node(cur_name, cur_graph_node, savedata_dict)
 		else:
 			update_node(cur_name, cur_graph_node, savedata_dict)
@@ -226,6 +275,12 @@ func load_savedata(savedata_dict: Dictionary):
 		connect_node(connection["from"], connection["from_port"], connection["to"], connection["to_port"])
 	
 	emit_signal("new_greatest_id", greatest_id_seen)
+
+func update_event_node(node_name: String, node_ref: GraphNode, save_data: Dictionary):
+	var offset_dict = save_data["names_to_offsets"][node_name]
+	node_ref.offset.x = offset_dict["x"]
+	node_ref.offset.y = offset_dict["y"]
+	node_ref.text = save_data["names_to_event"][node_name]
 
 func update_stub_node(node_name: String, node_ref: GraphNode, save_data: Dictionary):
 	var offset_dict = save_data["names_to_offsets"][node_name]

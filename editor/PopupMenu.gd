@@ -31,7 +31,8 @@ func _on_PopupMenu_id_pressed(id):
 			add_graph_node(preload("res://StateGraphNode.tscn"), "")
 		1: # stubbed state
 			add_graph_node(preload("res://StateStubGraphNode.tscn"), "_stub")
-
+		2: # event state
+			add_graph_node(preload("res://EventGraphNode.tscn"), "_event")
 
 func _on_GraphEdit_new_greatest_id(greatest_id):
 	id_counter = greatest_id + 1

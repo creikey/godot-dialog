@@ -15,15 +15,11 @@ slot/2/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 2 )
 is_stub = false
 
-[node name="TextLineEdit" parent="." index="1"]
-margin_top = 48.0
-margin_bottom = 72.0
-
 [node name="IncrementDecrement" type="HBoxContainer" parent="." index="2"]
 margin_left = 16.0
-margin_top = 73.0
+margin_top = 74.0
 margin_right = 233.0
-margin_bottom = 93.0
+margin_bottom = 94.0
 
 [node name="Increment" type="Button" parent="IncrementDecrement" index="0"]
 margin_right = 106.0
