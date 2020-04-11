@@ -37,7 +37,7 @@ func set_state(new_state):
 	
 	if cur_dict[state].has("next"):
 		choices_to_add = {"continue" : cur_dict[state]["next"]}
-	elif typeof(cur_dict[state]["choices"]) == TYPE_STRING:
+	elif typeof(cur_dict[state]["choices"]) == TYPE_STRING and cur_dict[state]["choices"] == "inherit": # inherit
 		choices_to_add = last_choices
 	else:
 		choices_to_add = cur_dict[state]["choices"]
